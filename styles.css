@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión USB</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Prototipo Power Platform</p>
+          <h1>Gestión USB</h1>
+        </div>
+        <div class="role-switcher">
+          <label for="rolActual">Rol</label>
+          <select id="rolActual">
+            <option value="solicitante">Solicitante</option>
+            <option value="direccion">Dirección</option>
+            <option value="supervisor">Supervisor AASU</option>
+            <option value="tecnico">Técnico AASU</option>
+          </select>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="panel important">
+          <div class="panel-header">
+            <h2>Resumen operativo</h2>
+          </div>
+          <div class="stats-grid" id="statsGrid"></div>
+        </section>
+
+        <section id="solicitanteSection" class="panel panel-visible">
+          <div class="panel-header">
+            <h2>Solicitar habilitación USB</h2>
+          </div>
+          <form id="formSolicitud" class="form-grid">
+            <label>
+              Fecha de inicio
+              <input type="text" id="fechaInicio" readonly />
+            </label>
+
+            <label>
+              Fecha de fin
+              <input type="date" id="fechaFin" required />
+            </label>
+
+            <label>
+              Tipo de dispositivo
+              <select id="tipoDispositivo" required>
+                <option value="">Seleccione</option>
+                <option value="Memoria USB">Memoria USB</option>
+                <option value="Disco duro externo">Disco duro externo</option>
+                <option value="Disco SSD externo">Disco SSD externo</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </label>
+
+            <label>
+              Marca y modelo
+              <input type="text" id="marcaModelo" maxlength="120" required />
+            </label>
+
+            <label>
+              Número de serie
+              <input type="text" id="numeroSerie" maxlength="80" required />
+            </label>
+
+            <label>
+              Capacidad (GB)
+              <input type="number" id="capacidad" min="1" max="2000" />
+            </label>
+
+            <label>
+              ¿Proporcionado por la SIB?
+              <select id="proporcionadoSIB" required>
+                <option value="">Seleccione</option>
+                <option value="Sí">Sí</option>
+                <option value="No">No</option>
+              </select>
+            </label>
+
+            <label class="full-width">
+              Motivo
+              <textarea id="motivo" rows="4" maxlength="500" required></textarea>
+            </label>
+
+            <div class="actions full-width">
+              <button type="submit" class="primary">Enviar solicitud</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="direccionSection" class="panel panel-hidden">
+          <div class="panel-header">
+            <h2>Aprobación de Dirección</h2>
+          </div>
+          <div id="listaAprobacion" class="request-list"></div>
+        </section>
+
+        <section id="supervisorSection" class="panel panel-hidden">
+          <div class="panel-header">
+            <h2>Asignación de supervisor</h2>
+          </div>
+          <div id="listaSupervisor" class="request-list"></div>
+        </section>
+
+        <section id="tecnicoSection" class="panel panel-hidden">
+          <div class="panel-header">
+            <h2>Gestión técnica</h2>
+          </div>
+          <div id="listaTecnico" class="request-list"></div>
+        </section>
+
+        <section class="panel full-span">
+          <div class="panel-header">
+            <h2>Solicitudes</h2>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Número</th>
+                  <th>Solicitante</th>
+                  <th>Fecha inicio</th>
+                  <th>Fecha fin</th>
+                  <th>Tipo</th>
+                  <th>Estado</th>
+                  <th>Técnico</th>
+                </tr>
+              </thead>
+              <tbody id="tablaSolicitudes"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="requestCardTemplate">
+      <article class="request-card">
+        <div class="card-header">
+          <strong class="codigo"></strong>
+          <span class="estado-tag"></span>
+        </div>
+        <div class="card-body"></div>
+        <div class="card-actions"></div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+
